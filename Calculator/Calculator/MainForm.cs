@@ -12,101 +12,115 @@ namespace Calculator
             calcController = new CalculatorController();
         }
 
-        #region Numerical button events
-        private void btnZero_Click(object sender, EventArgs e)
+        #region Numerical buttons event
+        private void NumberButton_Click(object sender, EventArgs e)
         {
-            UpdateNumber(btnZero.Text);
-        }
-
-        private void btnOne_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnOne.Text);
-        }
-
-        private void btnTwo_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnTwo.Text);
-        }
-
-        private void btnThree_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnThree.Text);
-        }
-
-        private void btnFour_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnFour.Text);
-        }
-
-        private void btnFive_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnFive.Text);
-        }
-
-        private void btnSix_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnSix.Text);
-        }
-        private void btnSeven_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnSeven.Text);
-        }
-
-        private void btnEight_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnEight.Text);
-        }
-
-        private void btnNine_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnNine.Text);
+            Button btnNumber = (sender as Button);
+            txtResults.Text = calcController.UpdateNumber(btnNumber.Text.Replace("&", String.Empty)).ToString();
         }
         #endregion
 
-        private void btnDecimal_Click(object sender, EventArgs e)
-        {
-            UpdateNumber(btnDecimal.Text);
-        }
-
-        private void UpdateNumber(string numberString)
-        {
-            txtResults.Text += numberString.Replace("&",String.Empty);
-            calcController.InsertNumber(calcController.GetNumber(txtResults.Text));
-        }
-
         private void btnChangeSign_Click(object sender, EventArgs e)
         {
+            calcController.UpdateNumber(txtResults.Text);
+
+            //Updates number based on current sign
             calcController.setNumberSign(!calcController.IsNumberPositive());
+
+            //sets text to updated number
             txtResults.Text = calcController.GetNumber().ToString();
         }
 
         private void btnDivide_Click(object sender, EventArgs e)
         {
-            calcController.Divide(calcController.GetNumber(txtResults.Text)).ToString();
-            txtResults.Text = String.Empty;
+            txtResults.Text = calcController.Divide().ToString();
         }
 
         private void btnMultiply_Click(object sender, EventArgs e)
         {
-            calcController.Multiply(calcController.GetNumber(txtResults.Text)).ToString();
-            txtResults.Text = String.Empty;
+            txtResults.Text = calcController.Multiply().ToString();
         }
 
         private void btnSubtract_Click(object sender, EventArgs e)
         {
-            calcController.Subtract(calcController.GetNumber(txtResults.Text)).ToString();
-            txtResults.Text = String.Empty;
+            txtResults.Text = calcController.Subtract().ToString();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            calcController.Add(calcController.GetNumber(txtResults.Text)).ToString();
-            txtResults.Text = String.Empty;
+            txtResults.Text = calcController.Add().ToString();
         }
 
         private void btnEquals_Click(object sender, EventArgs e)
         {
             txtResults.Text = calcController.Calculate().ToString();
+        }
+        
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            calcController.Clear();
+            txtResults.Text = String.Empty;
+        }
+
+        private void MainForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+
+            switch(e.KeyChar)
+            {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case '.':
+                case (char)Keys.NumPad0:
+                case (char)Keys.NumPad1:
+                case (char)Keys.NumPad2:
+                case (char)Keys.NumPad3:
+                case (char)Keys.NumPad4:
+                case (char)Keys.NumPad5:
+                case (char)Keys.NumPad6:
+                case (char)Keys.NumPad7:
+                case (char)Keys.NumPad8:
+                case (char)Keys.NumPad9:
+                case (char)Keys.Decimal:
+                case (char)Keys.OemPeriod:
+                    txtResults.Text = calcController.UpdateNumber(e.KeyChar.ToString()).ToString();
+                    break;
+                case '/':
+                case (char)Keys.Divide:
+                    btnDivide_Click(sender, e);
+                    calcController.UpdateSign(Signs.Divide);
+                    break;
+                case '+':
+                case (char)Keys.Add:
+                    btnAdd_Click(sender, e);
+                    calcController.UpdateSign(Signs.Add);
+                    break;
+                case '-':
+                case (char)Keys.Subtract:
+                    btnSubtract_Click(sender, e);
+                    calcController.UpdateSign(Signs.Subtract);
+                    break;
+                case '*':
+                case (char)Keys.Multiply:
+                    btnMultiply_Click(sender, e);
+                    calcController.UpdateSign(Signs.Multiply);
+                    break;
+                case '=':
+                case (char)Keys.Enter:
+                    btnEquals_Click(sender, e);
+                    break;
+                default:
+                    e.Handled = false;
+                    break;
+            }
         }
     }
 }

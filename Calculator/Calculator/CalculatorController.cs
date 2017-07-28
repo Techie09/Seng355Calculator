@@ -6,82 +6,109 @@ using System.Threading.Tasks;
 
 namespace Calculator
 {
+    public enum Signs
+    {
+        NotSet,
+        Add,
+        Subtract,
+        Multiply,
+        Divide,
+        Equals
+    }
+
     public class CalculatorController
     {
-        public enum Signs
-        {
-            NotSet,
-            Add,
-            Subtract,
-            Multiply,
-            Divide,
-            Equals
-        }
-
         private Calculator calculator { get; set; }
+        private decimal? input { get; set; }
         private Signs sign { get; set; }
 
         public CalculatorController()
         {
+            Init();
+        }
+
+        private void Init()
+        {
             calculator = new Calculator(0);
             calculator.Result = 0;
+            input = null;
             sign = Signs.NotSet;
         }
 
-        public void InsertNumber(decimal number)
+        public void Clear()
         {
-            calculator.Number = number;
+            Init();
         }
 
-        public decimal Add(decimal number)
+        public decimal Add()
         {
-            if (sign == Signs.NotSet)
+            SetNumber();
+
+            if (sign == Signs.Add)
             {
-                sign = Signs.Add;
-                return calculator.Result = number;
+                sign = Signs.NotSet;
+                return calculator.Result += calculator.Number;
+            }
+            
+            sign = Signs.Add;
+            calculator.Result = calculator.Number;
+            return calculator.Result;
+        }
+
+        public decimal Subtract()
+        {
+            SetNumber();
+
+            if (sign == Signs.Subtract)
+            {
+                sign = Signs.NotSet;
+                return calculator.Result -= calculator.Number;
+            }
+            
+            sign = Signs.Subtract;
+            calculator.Result = calculator.Number;
+            return calculator.Result;
+        }
+
+        public decimal Multiply()
+        {
+            SetNumber();
+
+            if (sign == Signs.Multiply)
+            {
+                sign = Signs.NotSet;
+                return calculator.Result *= calculator.Number;
             }
 
-            calculator.Result += number;
-            return GetResult();
+            sign = Signs.Multiply;
+            calculator.Result = calculator.Number;
+            return calculator.Result;
         }
 
-        public decimal Subtract(decimal number)
+        public decimal Divide()
         {
-            if (sign == Signs.NotSet)
+            SetNumber();
+
+            if (calculator.Number == 0)
             {
-                sign = Signs.Subtract;
-                return calculator.Result = number;
-            }
-
-            calculator.Result -= number;
-            return GetResult();
-        }
-
-        public decimal Multiply(decimal number)
-        {
-            if (sign == Signs.NotSet)
-            {
-                sign = Signs.Multiply;
-                return calculator.Result = number;
-            }
-
-            calculator.Result *= number;
-            return GetResult();
-        }
-
-        public decimal Divide(decimal number)
-        {
-            if (number == 0)
+                Clear();
                 throw new DivideByZeroException("Cannot divide by zero!");
-
-            if (sign == Signs.NotSet)
-            {
-                sign = Signs.Divide;
-                return calculator.Result = number;
             }
 
-            calculator.Result /= number;
-            return GetResult();
+            if (sign == Signs.Divide)
+            {
+                sign = Signs.NotSet;
+                return calculator.Result /= calculator.Number;
+            }
+
+            sign = Signs.Divide;
+            calculator.Result = calculator.Number;
+            return calculator.Result;
+        }
+
+        public void UpdateSign(Signs sign)
+        {
+            this.sign = sign;
         }
 
         public decimal Calculate()
@@ -89,16 +116,29 @@ namespace Calculator
             switch(sign)
             {
                 case Signs.Add:
-                    return Add(calculator.Number);
+                    return Add();
                 case Signs.Subtract:
-                    return Subtract(calculator.Number);
+                    return Subtract();
                 case Signs.Multiply:
-                    return Multiply(calculator.Number);
+                    return Multiply();
                 case Signs.Divide:
-                    return Divide(calculator.Number);
+                    return Divide();
                 default:
-                    return calculator.Number;             
+                    return input.HasValue ? input.Value : 0;             
             }
+        }
+
+        public void SetNumber()
+        {
+            calculator.Number = input.HasValue ? input.Value : 0;
+            input = null;
+        }
+
+        public decimal UpdateNumber(string numberString)
+        {
+            string value = input.HasValue ? input.Value.ToString() : String.Empty;
+            input = GetNumber($"{value}{numberString}");
+            return input.HasValue ? input.Value : 0;
         }
 
         public decimal GetResult()
@@ -121,11 +161,14 @@ namespace Calculator
 
         public bool IsNumberPositive()
         {
-            return 0 <= calculator.Number;
+            decimal value = input.HasValue ? input.Value : 0;
+            return 0 <= value;
         }
 
         public void setNumberSign (bool isPositive)
         {
+            if (sign == Signs.NotSet)
+                calculator.Number = input.HasValue ? input.Value : 0;
             calculator.Number *= isPositive && IsNumberPositive() ? 1 : -1;
         }
     }
