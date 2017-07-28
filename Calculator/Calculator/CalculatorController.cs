@@ -19,7 +19,7 @@ namespace Calculator
     public class CalculatorController
     {
         private Calculator calculator { get; set; }
-        private decimal? input { get; set; }
+        private string input { get; set; }
         private Signs sign { get; set; }
 
         public CalculatorController()
@@ -124,21 +124,20 @@ namespace Calculator
                 case Signs.Divide:
                     return Divide();
                 default:
-                    return input.HasValue ? input.Value : 0;             
+                    return GetNumber(input);             
             }
         }
 
         public void SetNumber()
         {
-            calculator.Number = input.HasValue ? input.Value : 0;
+            calculator.Number = GetNumber(input);
             input = null;
         }
 
-        public decimal UpdateNumber(string numberString)
+        public string UpdateNumber(string numberString)
         {
-            string value = input.HasValue ? input.Value.ToString() : String.Empty;
-            input = GetNumber($"{value}{numberString}");
-            return input.HasValue ? input.Value : 0;
+            input += numberString;
+            return input;
         }
 
         public decimal GetResult()
@@ -161,14 +160,14 @@ namespace Calculator
 
         public bool IsNumberPositive()
         {
-            decimal value = input.HasValue ? input.Value : 0;
+            decimal value = GetNumber(input);
             return 0 <= value;
         }
 
         public void setNumberSign (bool isPositive)
         {
             if (sign == Signs.NotSet)
-                calculator.Number = input.HasValue ? input.Value : 0;
+                calculator.Number = GetNumber(input);
             calculator.Number *= isPositive && IsNumberPositive() ? 1 : -1;
         }
     }
