@@ -71,7 +71,6 @@
             // 
             // btnBackspace
             // 
-            this.btnBackspace.Enabled = false;
             this.btnBackspace.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBackspace.Location = new System.Drawing.Point(51, 90);
             this.btnBackspace.Name = "btnBackspace";
@@ -80,10 +79,10 @@
             this.btnBackspace.TabStop = false;
             this.btnBackspace.Text = "<";
             this.btnBackspace.UseVisualStyleBackColor = true;
+            this.btnBackspace.Click += new System.EventHandler(this.btnBackspace_Click);
             // 
             // btnMemoryClear
             // 
-            this.btnMemoryClear.Enabled = false;
             this.btnMemoryClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMemoryClear.Location = new System.Drawing.Point(12, 54);
             this.btnMemoryClear.Margin = new System.Windows.Forms.Padding(1);
@@ -93,10 +92,10 @@
             this.btnMemoryClear.TabStop = false;
             this.btnMemoryClear.Text = "MC";
             this.btnMemoryClear.UseVisualStyleBackColor = true;
+            this.btnMemoryClear.Click += new System.EventHandler(this.btnMemoryClear_Click);
             // 
             // btnMemoryRecall
             // 
-            this.btnMemoryRecall.Enabled = false;
             this.btnMemoryRecall.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMemoryRecall.Location = new System.Drawing.Point(46, 54);
             this.btnMemoryRecall.Margin = new System.Windows.Forms.Padding(1);
@@ -106,10 +105,10 @@
             this.btnMemoryRecall.TabStop = false;
             this.btnMemoryRecall.Text = "MR";
             this.btnMemoryRecall.UseVisualStyleBackColor = true;
+            this.btnMemoryRecall.Click += new System.EventHandler(this.btnMemoryRecall_Click);
             // 
             // btnMemoryAdd
             // 
-            this.btnMemoryAdd.Enabled = false;
             this.btnMemoryAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMemoryAdd.Location = new System.Drawing.Point(80, 54);
             this.btnMemoryAdd.Margin = new System.Windows.Forms.Padding(1);
@@ -119,10 +118,10 @@
             this.btnMemoryAdd.TabStop = false;
             this.btnMemoryAdd.Text = "M+";
             this.btnMemoryAdd.UseVisualStyleBackColor = true;
+            this.btnMemoryAdd.Click += new System.EventHandler(this.btnMemoryAdd_Click);
             // 
             // btnMemorySubtract
             // 
-            this.btnMemorySubtract.Enabled = false;
             this.btnMemorySubtract.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMemorySubtract.Location = new System.Drawing.Point(114, 54);
             this.btnMemorySubtract.Margin = new System.Windows.Forms.Padding(1);
@@ -132,10 +131,10 @@
             this.btnMemorySubtract.TabStop = false;
             this.btnMemorySubtract.Text = "M-";
             this.btnMemorySubtract.UseVisualStyleBackColor = true;
+            this.btnMemorySubtract.Click += new System.EventHandler(this.btnMemorySubtract_Click);
             // 
             // btnMemoryStore
             // 
-            this.btnMemoryStore.Enabled = false;
             this.btnMemoryStore.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMemoryStore.Location = new System.Drawing.Point(148, 54);
             this.btnMemoryStore.Margin = new System.Windows.Forms.Padding(1);
@@ -145,6 +144,7 @@
             this.btnMemoryStore.TabStop = false;
             this.btnMemoryStore.Text = "MS";
             this.btnMemoryStore.UseVisualStyleBackColor = true;
+            this.btnMemoryStore.Click += new System.EventHandler(this.btnMemoryStore_Click);
             // 
             // lblMemory
             // 
@@ -159,7 +159,6 @@
             // 
             // btnClearEntry
             // 
-            this.btnClearEntry.Enabled = false;
             this.btnClearEntry.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearEntry.Location = new System.Drawing.Point(105, 90);
             this.btnClearEntry.Name = "btnClearEntry";
@@ -168,6 +167,7 @@
             this.btnClearEntry.TabStop = false;
             this.btnClearEntry.Text = "CE";
             this.btnClearEntry.UseVisualStyleBackColor = true;
+            this.btnClearEntry.Click += new System.EventHandler(this.btnClearEntry_Click);
             // 
             // btnClear
             // 

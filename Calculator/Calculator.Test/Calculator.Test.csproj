@@ -87,6 +87,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BasicOperations.cs" />
+    <Compile Include="MemoryOperations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

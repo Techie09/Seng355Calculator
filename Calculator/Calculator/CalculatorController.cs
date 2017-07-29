@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator
 {
@@ -31,8 +27,19 @@ namespace Calculator
         {
             calculator = new Calculator(0);
             calculator.Result = 0;
-            input = null;
+            input = String.Empty;
             sign = Signs.NotSet;
+        }
+
+        public string Backspace()
+        {
+            input = input.Remove(input.Length - 1);
+            return input;
+        }
+
+        public void ClearEntry()
+        {
+            input = String.Empty;
         }
 
         public void Clear()
@@ -131,7 +138,7 @@ namespace Calculator
         public void SetNumber()
         {
             calculator.Number = GetNumber(input);
-            input = null;
+            input = String.Empty;
         }
 
         public string UpdateNumber(string numberString)
@@ -170,5 +177,34 @@ namespace Calculator
                 calculator.Number = GetNumber(input);
             calculator.Number *= isPositive && IsNumberPositive() ? 1 : -1;
         }
+
+        #region Memory Functions
+
+        public void MemoryClear()
+        {
+            calculator.Memory = 0;
+        }
+
+        public decimal MemoryRecall()
+        {
+            return calculator.Memory;
+        }
+
+        public void MemoryStore()
+        {
+            calculator.Number = GetNumber(input);
+            calculator.Memory = calculator.Number;
+        }
+
+        public decimal MemoryAdd()
+        {
+            return calculator.Memory += GetNumber(input);
+        }
+
+        public decimal MemorySubtract()
+        {
+            return calculator.Memory -= GetNumber(input);
+        }
+        #endregion
     }
 }

@@ -10,6 +10,7 @@ namespace Calculator
     {
         public decimal Result { get; set; }
         public decimal Number { get; set; }
+        public decimal Memory { get; set; }
 
         public Calculator() { }
         public Calculator(decimal number) : this()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Calculator
@@ -22,6 +23,7 @@ namespace Calculator
 
         private void btnChangeSign_Click(object sender, EventArgs e)
         {
+            calcController.ClearEntry();
             calcController.UpdateNumber(txtResults.Text);
 
             //Updates number based on current sign
@@ -33,21 +35,29 @@ namespace Calculator
 
         private void btnDivide_Click(object sender, EventArgs e)
         {
+            calcController.ClearEntry();
+            calcController.UpdateNumber(txtResults.Text);
             txtResults.Text = calcController.Divide().ToString();
         }
 
         private void btnMultiply_Click(object sender, EventArgs e)
         {
+            calcController.ClearEntry();
+            calcController.UpdateNumber(txtResults.Text);
             txtResults.Text = calcController.Multiply().ToString();
         }
 
         private void btnSubtract_Click(object sender, EventArgs e)
         {
+            calcController.ClearEntry();
+            calcController.UpdateNumber(txtResults.Text);
             txtResults.Text = calcController.Subtract().ToString();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            calcController.ClearEntry();
+            calcController.UpdateNumber(txtResults.Text);
             txtResults.Text = calcController.Add().ToString();
         }
 
@@ -121,6 +131,45 @@ namespace Calculator
                     e.Handled = false;
                     break;
             }
+        }
+
+        private void btnBackspace_Click(object sender, EventArgs e)
+        {
+            txtResults.Text = calcController.Backspace();
+        }
+
+        private void btnClearEntry_Click(object sender, EventArgs e)
+        {
+            calcController.ClearEntry();
+            txtResults.Text = String.Empty;
+        }
+
+
+        private void btnMemoryClear_Click(object sender, EventArgs e)
+        {
+            calcController.MemoryClear();
+            lblMemory.Text = String.Empty;
+        }
+
+        private void btnMemoryRecall_Click(object sender, EventArgs e)
+        {
+            txtResults.Text = calcController.MemoryRecall().ToString(CultureInfo.CurrentCulture);
+        }
+
+        private void btnMemoryAdd_Click(object sender, EventArgs e)
+        {
+            lblMemory.Text = calcController.MemoryAdd().ToString(CultureInfo.CurrentCulture);
+        }
+
+        private void btnMemorySubtract_Click(object sender, EventArgs e)
+        {
+            lblMemory.Text = calcController.MemorySubtract().ToString(CultureInfo.CurrentCulture);
+        }
+
+        private void btnMemoryStore_Click(object sender, EventArgs e)
+        {
+            calcController.MemoryStore();
+            lblMemory.Text = calcController.MemoryRecall().ToString(CultureInfo.CurrentCulture);
         }
     }
 }
