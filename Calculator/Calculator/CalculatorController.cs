@@ -137,7 +137,7 @@ namespace Calculator
 
         public void SetNumber()
         {
-            calculator.Number = GetNumber(input);
+            calculator.Number = String.IsNullOrEmpty(input) ? 0M : GetNumber(input);
             input = String.Empty;
         }
 
